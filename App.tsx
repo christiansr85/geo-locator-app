@@ -1,14 +1,14 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import MapView from 'react-native-maps';
+import { Map, Panel } from './components';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <MapView style={styles.map}>
-
-      </MapView>
+      <Map style={styles.map} />
+      <Panel/>
+      {/* <Modal /> */}
       <StatusBar style="auto" />
     </View>
   );
@@ -16,13 +16,13 @@ export default function App() {
 
 const styles = StyleSheet.create({
   map: {
-    height: Dimensions.get('window').height,
+    height: Dimensions.get('window').height - 150,
     width: Dimensions.get('window').width
   },
   container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
 });
