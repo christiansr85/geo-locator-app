@@ -1,17 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import React, {useState} from 'react';
+import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import { Map, Modal, Panel } from './components';
 
 export default function App() {
+const [points, setPoints] = useState<any[]>([]);
+
   const handleLongPress = ({nativeEvent}: any) => {
-    console.log(nativeEvent)
+    points.push({ coordinate: nativeEvent.coordinate });
+    setPoints(points);
   }
   return (
     <View style={styles.container}>
       <Map style={styles.map} onLongPress={handleLongPress}/>
       <Panel style={styles.panel}/>
-      <Modal />
+      <Modal visibility={false}>
+        <Text>MODAL REFACTORED</Text>
+        </Modal>
       <StatusBar style="auto" />
     </View>
   );
