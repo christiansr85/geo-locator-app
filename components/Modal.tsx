@@ -5,7 +5,7 @@ export default () => {
     return (<Modal
         animationType="fade"
         transparent={true}
-        visible={true}>
+        visible={false}>
         <View style={styles.modalBackground}>
             <View style={styles.modalView}>
                 <Text>
