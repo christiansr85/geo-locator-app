@@ -3,13 +3,21 @@ import React, { useState } from 'react';
 import { Button, Dimensions, StyleSheet, View } from 'react-native';
 import { Input, Map, Modal, Panel } from './components';
 
+enum DISPLAY_MODAL_TYPE {
+  NEW_POINT = 'new_point',
+  ALL_POINTS = 'all_points'
+}
+
 export default function App() {
   const [points, setPoints] = useState<any[]>([]);
   const [pointName, setPointName] = useState<string>('');
   const [pointTemp, setPointTemp] = useState<any>({});
   const [displayModal, setDisplayModal] = useState<boolean>(false);
+  // Possible values: DISPLAY_MODAL_TYPE values'
+  const [displayFilter, setDisplayFilter] = useState<string>(DISPLAY_MODAL_TYPE.NEW_POINT);
 
   const handleLongPress = ({ nativeEvent }: any) => {
+    setDisplayFilter(DISPLAY_MODAL_TYPE.NEW_POINT);
     setPointTemp(nativeEvent.coordinate);
     setDisplayModal(true);
   }
@@ -21,23 +29,42 @@ export default function App() {
     setDisplayModal(false);
     setPointName('');
   }
+  const handleListDisplay = () => {
+    setDisplayFilter(DISPLAY_MODAL_TYPE.ALL_POINTS);
+    setDisplayModal(true);
+  }
 
   return (
     <View style={styles.container}>
       <Map style={styles.map} onLongPress={handleLongPress} />
-      <Panel style={styles.panel} />
+      <Panel 
+        style={styles.panel} 
+        onPressLeft={handleListDisplay}
+        textLeft="Lista"/>
       <Modal visibility={displayModal}>
-        <View style={styles.modalContent}>
-          <Input
-            title="Name"
-            placeholder="Point's name"
-            onChangeText={handleOnChangeText}>
-          </Input>
-          <View style={styles.buttonsView}>
+        {displayFilter === DISPLAY_MODAL_TYPE.NEW_POINT
+          ?
+          (
+            <>
+              <View style={styles.modalContent}>
+                <Input
+                  title="Name"
+                  placeholder="Point's name"
+                  onChangeText={handleOnChangeText}>
+                </Input>
+                <View style={styles.buttonsView}>
+                  <Button title="Cancel" onPress={() => setDisplayModal(false)} />
+                  <Button title="Accept" onPress={handleOnSubmit} />
+                </View>
+              </View>
+            </>
+          )
+          :
+          (
             <Button title="Cancel" onPress={() => setDisplayModal(false)} />
-            <Button title="Accept" onPress={handleOnSubmit} />
-          </View>
-        </View>
+          )
+        }
+
       </Modal>
       <StatusBar style="auto" />
     </View>
