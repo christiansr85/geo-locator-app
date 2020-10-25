@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { Button, Dimensions, StyleSheet, View } from 'react-native';
-import { Input, Map, Modal, Panel } from './components';
+import { Input, List, Map, Modal, Panel } from './components';
 
 enum DISPLAY_MODAL_TYPE {
   NEW_POINT = 'new_point',
@@ -61,7 +61,14 @@ export default function App() {
           )
           :
           (
-            <Button title="Cancel" onPress={() => setDisplayModal(false)} />
+            <>
+              <View style={styles.modalContent}>
+                <List data={points}/>
+                <View style={styles.buttonsView}>
+                  <Button title="Exit" onPress={() => setDisplayModal(false)} />                 
+                </View>
+              </View>
+            </>            
           )
         }
 
@@ -85,7 +92,7 @@ const styles = StyleSheet.create({
   modalContent: {
     flex: 1,
     flexDirection: 'column',
-    width: 200
+    minWidth: 200
   },
   buttonsView: {
     flex: 1,
