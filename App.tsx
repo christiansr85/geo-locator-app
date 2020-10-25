@@ -15,6 +15,9 @@ export default function App() {
   const [displayModal, setDisplayModal] = useState<boolean>(false);
   // Possible values: DISPLAY_MODAL_TYPE values'
   const [displayFilter, setDisplayFilter] = useState<string>(DISPLAY_MODAL_TYPE.NEW_POINT);
+  const [pointsFilter, setPointsFilter] = useState<boolean>(true);
+
+  const togglePointsFilter = () => setPointsFilter(!pointsFilter);
 
   const handleLongPress = ({ nativeEvent }: any) => {
     setDisplayFilter(DISPLAY_MODAL_TYPE.NEW_POINT);
@@ -36,11 +39,19 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Map style={styles.map} onLongPress={handleLongPress} />
+      <Map 
+        style={styles.map} 
+        onLongPress={handleLongPress} 
+        points={points}
+        pointsFilter={pointsFilter}
+        />
       <Panel 
         style={styles.panel} 
         onPressLeft={handleListDisplay}
-        textLeft="Lista"/>
+        textLeft="Lista"
+        onPressRight={togglePointsFilter}
+        textRight="Mostrar/Ocultar"
+        />
       <Modal visibility={displayModal}>
         {displayFilter === DISPLAY_MODAL_TYPE.NEW_POINT
           ?

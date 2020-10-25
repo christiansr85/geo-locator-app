@@ -5,12 +5,14 @@ export default (props: any) => {
     const { 
         style, 
         onPressLeft,
-        textLeft
+        textLeft,
+        onPressRight,
+        textRight
      } = props;
     return (
         <View style={{...style, ...styles.panel}}>
             <Button title={textLeft} onPress={onPressLeft} />
-            <Button title="Mostrar/Ocultar" onPress={() => Alert.alert('Mostrar/ocultar')} />
+            <Button title={textRight} onPress={onPressRight} />
         </View>
     )
 }
