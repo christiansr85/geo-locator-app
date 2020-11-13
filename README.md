@@ -15,3 +15,21 @@ You have to execute these two commands:
 - `yarn start` (or `npm start`)
 
 And then choose the device/emulator where you want to show the application.
+
+## Install navigation dependencies for first time
+Once you have all dependencies in your `package.json` file, you'll install them through the above mentioned `yarn install` command, but as a reminder, you could install them through `expo install` order followed by all these packages:
+- `react-navigation`
+- `react-native-gesture-handler`
+- `react-native-reanimated`
+- `react-native-screens`
+- `react-native-safe-area-context`
+- `@react-native-community/masked-view`
+
+The final command should look like this:
+```
+expo install react-navigation react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view
+```
+After that, and as we are going to use stack navigation, we should have to install it as well:
+```
+yarn add react-navigation-stack
+```
