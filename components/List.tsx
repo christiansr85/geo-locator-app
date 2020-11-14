@@ -1,23 +1,14 @@
 import React from 'react';
-import { FlatList, Text, View, StyleSheet } from 'react-native';
+import { FlatList } from 'react-native';
+import ListItem from './ListItem';
 
-export default ({ data }: any) => {
+export default ({ data, onPress }: any) => {
     return (
         <FlatList
-            data={data.map(x => x.name)}
-            renderItem={({ item }: any) => <View style={styles.listItem}><Text>{item}</Text></View>}
-            keyExtractor={(item: any) => item}
+            data={data}
+            renderItem={({ item }: any) => <ListItem onPress={onPress} item={item} />}
+            keyExtractor={(item: any) => item.name}
         />
     );
 }
 
-const styles = StyleSheet.create({
-    listItem: {
-        flex: 1,
-        borderBottomWidth: 1,
-        borderColor: '#ccc',
-        height: 40,
-        justifyContent: 'center',
-        alignContent: 'center'
-    }
-});

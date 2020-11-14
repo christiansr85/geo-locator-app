@@ -8,7 +8,7 @@ enum DISPLAY_MODAL_TYPE {
     ALL_POINTS = 'all_points'
 }
 
-export default () => {
+export default ({ navigation }: any) => {
     const [points, setPoints] = useState<any[]>([]);
     const [pointName, setPointName] = useState<string>('');
     const [pointTemp, setPointTemp] = useState<any>({});
@@ -36,6 +36,9 @@ export default () => {
         setDisplayFilter(DISPLAY_MODAL_TYPE.ALL_POINTS);
         setDisplayModal(true);
     }
+    const navigateToList = () => {
+        navigation.navigate('Points', { data: points });
+    }
 
     return (
         <View style={styles.container}>
@@ -47,10 +50,10 @@ export default () => {
             />
             <Panel
                 style={styles.panel}
-                onPressLeft={handleListDisplay}
-                textLeft="Lista"
+                onPressLeft={navigateToList}
+                textLeft="List"
                 onPressRight={togglePointsFilter}
-                textRight="Mostrar/Ocultar"
+                textRight="Show/Hide"
             />
             <Modal visibility={displayModal}>
                 {displayFilter === DISPLAY_MODAL_TYPE.NEW_POINT
